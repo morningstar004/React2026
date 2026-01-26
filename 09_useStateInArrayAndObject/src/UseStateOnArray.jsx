@@ -11,7 +11,7 @@ const initialTodos = [
 
 export default function TaskApp() {
   const [todos, setTodos] = useState(initialTodos);
-
+  //01
   function handleAddTodo(title) {
     setTodos([
       ...todos,
@@ -22,7 +22,7 @@ export default function TaskApp() {
       }
     ]);
   }
-
+  //02
   function handleChangeTodo(nextTodo) {
     setTodos(todos.map(t => {
       if (t.id === nextTodo.id) {
@@ -32,7 +32,7 @@ export default function TaskApp() {
       }
     }));
   }
-
+  //03
   function handleDeleteTodo(todoId) {
     setTodos(
       todos.filter(t => t.id !== todoId)
