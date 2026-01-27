@@ -17,7 +17,7 @@ export default function TaskApp() {
       ...todos,
       {
         id: nextId++,
-        title: title,
+        name: title,
         done: false
       }
     ]);
