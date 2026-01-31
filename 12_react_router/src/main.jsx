@@ -1,12 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { Route ,RouterProvider ,createBrowserRouter } from 'react-router-dom'
+import { Route ,RouterProvider ,createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import Layout from './Layout.jsx'
 import Home from './components/Home/Home.jsx'
 import About from './components/About/About.jsx'
 import Contact from './components/Contact/Contact.jsx'
 import GitHub from './components/GitHub/GitHub.jsx'
+import User from './components/User/User.jsx'
 import App from './App.jsx'
 
 const router = createBrowserRouter([
@@ -34,8 +35,23 @@ const router = createBrowserRouter([
   }
 ])
 
+
+//second way of using Router ____
+const router2 = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<Layout />}> 
+      <Route path='' element={<Home />} />
+      <Route path='/about' element={<About />} />
+      <Route path='/contact' element={<Contact />} />
+      <Route path='/github' element={<GitHub />} />
+      <Route path='/user/:id' element={<User />} />
+      {/* user/{number} */}
+    </Route>
+  )
+)
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <RouterProvider router={router2} />
   </StrictMode>,
 )
