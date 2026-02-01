@@ -3,14 +3,16 @@ import InputBox from "./components/inputBox";
 import useCurrencyInfo from "./hooks/useCurrencyInfo";
 
 function App() {
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState();
   const [from, setFrom] = useState("usd");
   const [To, setTo] = useState("inr");
   const [convertedAmount, setConvertedAmount] = useState(0);
 
   const currencyinfo = useCurrencyInfo(from);
 
-  const options = Object.keys(currencyinfo);
+  const options = Object.keys(currencyinfo).map(key => key.toUpperCase());
+  console.log(currencyinfo);
+
 
   const swap = () => {
     setFrom(To);
@@ -32,15 +34,16 @@ function App() {
             onSubmit={(e) => {
               e.preventDefault();
               setConvertedAmount((amount * currencyinfo[To]).toFixed(4));
+              console.log(currencyinfo[To]);
             }}
           >
             <div className="w-full mb-1">
               <InputBox
-                label="From"
+                lable="From"
                 amount={amount}
                 currencyOptions={options}
-                onCurrencyChange={(currency) => setAmount(amount)}
-                selectCurrency={from}
+                onCurrencyChange={(currency) => setFrom(currency.toLowerCase())}
+                selectedCurrency={from.toUpperCase()}
                 onAmountChange={(amount) => setAmount(amount)}
               />
             </div>
@@ -55,11 +58,11 @@ function App() {
             </div>
             <div className="w-full mt-1 mb-4">
               <InputBox
-                label="To"
+                lable="To"
                 amount={convertedAmount}
                 currencyOptions={options}
-                onCurrencyChange={(currency) => setTo(currency)}
-                selectCurrency={from}
+                onCurrencyChange={(currency) => setTo(currency.toLowerCase())}
+                selectedCurrency={To.toUpperCase()}
                 amountDisable
               />
             </div>
