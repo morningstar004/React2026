@@ -6,7 +6,7 @@ const navbar = () => {
     <header className="shadow sticky top-0 z-50" //stick keyword is used to stick the navbar at the top of the page even when scroll down sticked div will be at the same portion of the screen.Fixed is a another keyword that can be used instead of stick for similar properties.
     >
       <nav className="bg-white border-grey-200 px-4 lg:px-6 py-2.5">
-        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-7xl">
           <Link to="/" className="flex items-center">
             <img
               src="https://alexharkness.com/wp-content/uploads/2020/06/logo-2.png"
@@ -34,7 +34,7 @@ const navbar = () => {
             className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
             id="mobile-menu-2"
           >
-            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+            <ul className="flex flex-col gap-12 mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
               <li>
                 <NavLink
                   to="/"
