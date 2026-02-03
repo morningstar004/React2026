@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 
 const navbar = () => {
   return (
-    <header className="shadow sticky top-0 z-50" //sticky is a good also use fixed 
+    <header className="shadow sticky top-0 z-50" //stick keyword is used to stick the navbar at the top of the page even when scroll down sticked div will be at the same portion of the screen.Fixed is a another keyword that can be used instead of stick for similar properties.
     >
       <nav className="bg-white border-grey-200 px-4 lg:px-6 py-2.5">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
@@ -19,7 +19,8 @@ const navbar = () => {
             <Link
               to="#"
               className="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
-            >
+           // focus tailwind code running when you click on the div the focus css applied to its mostly the wide of the ring and color etc.
+ >
               Log in
             </Link>
             <Link
