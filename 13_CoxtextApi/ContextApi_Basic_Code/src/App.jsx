@@ -16,3 +16,8 @@ function App() {
 }
 
 export default App
+
+
+// In the main App file, you wrap the Login and Profile components inside the UserContextProvider.
+// Because they are inside the Provider, both Login and Profile now have access to the global "user" state.
+// When you log in using the Login component, it updates the global user state.

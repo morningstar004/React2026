@@ -29,3 +29,8 @@ function Login() {
 }
 
 export default Login
+
+// This component is the Data Producer.
+// It uses local state to track what the user types into the input fields.
+// When the "Submit" button is clicked, it calls setUser (which it pulled from the Context).
+// This "pushes" the username and password into the global bucket.
