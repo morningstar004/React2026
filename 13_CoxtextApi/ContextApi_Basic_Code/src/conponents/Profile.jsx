@@ -1,12 +1,14 @@
-import React, {useContext} from 'react'
-import UserContext from '../context/userContext'
+import React, { useContext } from "react";
+import UserContext from "../context/userContext";
 
 function Profile() {
-    const {user} = useContext(UserContext)
-    
-    if (!user) return <div>please login</div>
+  // resiving data from the global bucket (Context).
+  //asking the Context for the user data.
+  const { user } = useContext(UserContext);
 
-    return <div>Welcome {user.username}</div>
+  if (!user) return <div>please login</div>;
+
+  return <div>Welcome {user.username}, U,r now loged In</div>;
 }
 
 export default Profile;
