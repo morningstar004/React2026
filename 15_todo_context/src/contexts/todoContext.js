@@ -5,7 +5,7 @@ export const TodoContext = createContext({
         {
             id: 1,
             title: "react learn",
-            completed: false
+            completed: false,
         }
     ],
     addTodo: (title) => {},
