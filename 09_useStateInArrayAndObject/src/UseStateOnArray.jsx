@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import AddTodo from './AddTodo.jsx';
-import TaskList from './TaskList.jsx';
+import { useState } from "react";
+import AddTodo from "./AddTodo.jsx";
+import TaskList from "./TaskList.jsx";
 
 let nextId = 3;
 const initialTodos = [
-  { id: 0, title: 'Buy milk', done: true },
-  { id: 1, title: 'Eat tacos', done: false },
-  { id: 2, title: 'Brew tea', done: false },
+  { id: 0, title: "Buy milk", done: true },
+  { id: 1, title: "Eat tacos", done: false },
+  { id: 2, title: "Brew tea", done: false },
 ];
 
 export default function TaskApp() {
@@ -15,35 +15,31 @@ export default function TaskApp() {
   function handleAddTodo(title) {
     setTodos([
       ...todos,
-      {
-        id: nextId++,
-        name: title,
-        done: false
-      }
+      ...(title.trim() !== ""
+        ? [{ id: nextId++, title: title, done: false }]
+        : []),
     ]);
   }
   //02
   function handleChangeTodo(nextTodo) {
-    setTodos(todos.map(t => {
-      if (t.id === nextTodo.id) {
-        return nextTodo;
-      } else {
-        return t;
-      }
-    }));
+    setTodos(
+      todos.map((t) => {
+        if (t.id === nextTodo.id) {
+          return nextTodo;
+        } else {
+          return t;
+        }
+      }),
+    );
   }
   //03
   function handleDeleteTodo(todoId) {
-    setTodos(
-      todos.filter(t => t.id !== todoId)
-    );
+    setTodos(todos.filter((t) => t.id !== todoId));
   }
 
   return (
     <>
-      <AddTodo
-        onAddTodo={handleAddTodo}
-      />
+      <AddTodo onAddTodo={handleAddTodo} />
       <TaskList
         todos={todos}
         onChangeTodo={handleChangeTodo}
