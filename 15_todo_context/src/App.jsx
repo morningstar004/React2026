@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 function App() {
   const [Todos, setTodos] = useState([]);
 
-  const addTodo = (title) => {
-    setTodos([...Todos, { id: Date.now(), title, completed: false }]);
+  const addTodo = (todo) => {
+    setTodos((prev) => [{id: Date.now(), ...todo}, ...prev]);
   };
 
   const deleteTodo = (id) => {
@@ -31,10 +31,10 @@ function App() {
 
   // todo.id === id ? { ...todo, completed: !todo.completed } : todo
   useEffect(() => {
-    const Todos = JSON.parse(localStorage.getItem('Todos'))
+    const stored = JSON.parse(localStorage.getItem('Todos'))
 
-    if(Todos && Todos.lenght > 0){
-      setTodos(Todos)
+    if (stored && stored.length > 0) {
+      setTodos(stored)
     }
   },[])
 
