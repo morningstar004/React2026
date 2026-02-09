@@ -33,3 +33,7 @@ export const todoSlice = createSlice({
         }
     }
 })
+
+export const { addtodo, toggletodo, deletetodo } = todoSlice.actions;
+
+export default todoSlice.reducer;
