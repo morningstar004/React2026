@@ -1,4 +1,3 @@
-import { current } from "@reduxjs/toolkit";
 import conf from "./conf";
 import { Client, ID, Account } from "appwrite";
 
@@ -7,7 +6,7 @@ export class AuthServise {
   account;
 
   constructor() {
-    this.client.setEndpoint(appwriteURL).setProject(appwriteProjectID);
+    this.client.setEndpoint(conf.appwriteURL).setProject(conf.appwriteProjectID);
     this.account = new Account(this.client);
   }
 
@@ -38,9 +37,27 @@ export class AuthServise {
         return error
     }
   }
+
+  async getCurrentUser(){
+    try {
+      await this.account.get();
+    } catch (error) {
+      console.log("Appwrite service:: getCurrentUser :: error", error);
+      
+    }
+    return null;
+  }
+  //delete sessions
+  async logout(){
+    try {
+      await this.account.deleteSessions()
+    } catch (error) {
+      console.log("Appwrite service:: logout :: error ", error);
+    }
+  }
 }
 
-async currentUser
 const authServise = new AuthServise(); //object that i going to be use by the user to store authData
 
 export default authServise;
+//export defult new AuthServise()
