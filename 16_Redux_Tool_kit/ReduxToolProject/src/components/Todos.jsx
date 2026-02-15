@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { deletetodo, editTodo, toggletodo } from "../features/todo/todoSlice";
 import editLogo from "../assits/icons8-edit-72.png";
+import saveIcon from "../assits/icons8-save-96.png";
 
 function Todos() {
   const todos = useSelector((state) => state.todo.todos);
@@ -21,13 +22,18 @@ function Todos() {
               onChange={() => dispatch(toggletodo(todo.id))}
             />
             <div className="text-white">{todo.title}</div>
+            <input
+              type="text"
+              disabled={todo.completed === true}
+              className={`border rounded p-2 ${todo.completed === true ? 'bg-gray-300' : 'bg-white text-black'}`}
+            />
             <div className="gap-4 flex flex-row ">
               <button
                 onClick={() => dispatch(editTodo({ id: todo.id }))}
                 disabled={todo.completed}
                 className="text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded text-md"
               >
-                <img src={editLogo} alt="Edit" className="w-6 h-6" />
+                <img src={todo.completed === true ? saveIcon : editLogo} alt="Edit" className="w-6 h-6" />
               </button>
               <button
                 onClick={() => dispatch(deletetodo(todo.id))}
