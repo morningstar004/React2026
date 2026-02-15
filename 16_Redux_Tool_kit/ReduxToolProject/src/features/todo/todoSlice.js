@@ -12,7 +12,7 @@ const initialState = {
 
 export const todoSlice = createSlice({
   name: "todo",
-  initialState,
+  initialState,//intitialState can be a empty object.// initialState : [],
   reducers: {
     addtodo: (state, action) => {
       const todo = {
@@ -24,8 +24,11 @@ export const todoSlice = createSlice({
     },
     toggletodo: (state, action) => {
       const todo = state.todos.find((todo) => todo.id === action.payload.id);
+      console.log("used");
       if (todo) {
         todo.completed = !todo.completed;
+        console.log("Entered");
+        
       }
     },
     deletetodo: (state, action) => {

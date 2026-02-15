@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { deletetodo, editTodo } from "../features/todo/todoSlice";
+import { deletetodo, editTodo, toggletodo } from "../features/todo/todoSlice";
 import editLogo from "../assits/icons8-edit-72.png";
 
 function Todos() {
@@ -15,14 +15,16 @@ function Todos() {
             className="mt-4 flex justify-between items-center bg-zinc-800 px-4 py-2 rounded"
             key={todo.id}
           >
+            <input
+              type="checkbox"
+              className="cursor-pointer"
+              onChange={() => dispatch(toggletodo(todo.id))}
+            />
             <div className="text-white">{todo.title}</div>
             <div className="gap-4 flex flex-row ">
               <button
-                onClick={() =>
-                  dispatch(
-                    editTodo({ id: todo.id, title: "Updated Todo Title" }),
-                  )
-                }
+                onClick={() => dispatch(editTodo({ id: todo.id }))}
+                disabled={todo.completed}
                 className="text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded text-md"
               >
                 <img src={editLogo} alt="Edit" className="w-6 h-6" />
