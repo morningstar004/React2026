@@ -6,51 +6,50 @@ export class AuthServise {
   account;
 
   constructor() {
-    this.client.setEndpoint(conf.appwriteURL).setProject(conf.appwriteProjectID);
+    this.client
+      .setEndpoint(conf.appwriteURL)
+      .setProject(conf.appwriteProjectID);
     this.account = new Account(this.client);
   }
 
   async createAccount({ email, password, name }) {
     try {
-      const userAccount = await this.account.create
-      (
+      const userAccount = await this.account.create(
         ID.unique(),
         email,
         password,
-        name
+        name,
       );
-      if(userAccount){
+      if (userAccount) {
         //call another method
-      }
-      else{
-        return userAccount; 
+      } else {
+        return userAccount;
       }
     } catch (error) {
       throw error;
     }
   }
 
-  async login({email, password}){
+  async login({ email, password }) {
     try {
-        const login =  await this.account.createEmailSession(email, password);
+      const login = await this.account.createEmailSession(email, password);
     } catch (error) {
-        return error
+      return error;
     }
   }
 
-  async getCurrentUser(){
+  async getCurrentUser() {
     try {
       await this.account.get();
     } catch (error) {
       console.log("Appwrite service:: getCurrentUser :: error", error);
-      
     }
     return null;
   }
   //delete sessions
-  async logout(){
+  async logout() {
     try {
-      await this.account.deleteSessions()
+      await this.account.deleteSessions();
     } catch (error) {
       console.log("Appwrite service:: logout :: error ", error);
     }
