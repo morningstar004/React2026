@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Login from "../../../13_CoxtextApi/ContextApi_Basic_Code/src/conponents/LogIn";
 
 const initialState = {
     status: false,
@@ -23,5 +22,7 @@ const authSlice = createSlice(
 
     }
 )
+
+export const { Login, Logout } = authSlice.actions;
 
 export default authSlice.reducer;
