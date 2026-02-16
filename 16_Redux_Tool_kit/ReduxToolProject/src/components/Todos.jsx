@@ -1,43 +1,69 @@
 import { useSelector, useDispatch } from "react-redux";
-import { deletetodo, editTodo, toggletodo } from "../features/todo/todoSlice";
+import { deleteTodo, editTodo, toggleTodo } from "../features/todo/todoSlice";
 import editLogo from "../assits/icons8-edit-72.png";
 import saveIcon from "../assits/icons8-save-96.png";
+import { useState } from "react";
 
 function Todos() {
   const todos = useSelector((state) => state.todo.todos);
   const dispatch = useDispatch();
+  const [editingId, setEditingId] = useState(null);
+  const [editingTitle, setEditingTitle] = useState("");
+
+  const handleEdit = (todo) => {
+    if (editingId === todo.id) {
+      // Save mode
+      if (editingTitle.trim()) {
+        dispatch(editTodo({ id: todo.id, title: editingTitle }));
+      }
+      setEditingId(null);
+      setEditingTitle("");
+    } else {
+      // Edit mode
+      setEditingId(todo.id);
+      setEditingTitle(todo.title);
+    }
+  };
 
   return (
     <>
-      <div className="text-white text-xl font-bold p-4">Todos</div>
-      <ul className="list-none">
+      <div className="text-white text-2xl font-bold p-4 bg-gray-800 rounded-lg shadow-md">My Todo List</div>
+      <ul className="list-none mt-4">
         {todos.map((todo) => (
           <li
-            className="mt-4 flex justify-between items-center bg-zinc-800 px-4 py-2 rounded"
+            className="mt-2 flex justify-between items-center bg-gray-700 px-4 py-3 rounded-lg"
             key={todo.id}
           >
             <input
               type="checkbox"
               className="cursor-pointer"
-              onChange={() => dispatch(toggletodo(todo.id))}
+              onChange={() => {
+                if (todo && todo.id) {
+                  dispatch(toggleTodo(todo.id));
+                }
+              }}
             />
-            <div className="text-white">{todo.title}</div>
-            <input
-              type="text"
-              disabled={todo.completed === true}
-              className={`border rounded p-2 ${todo.completed === true ? 'bg-gray-300' : 'bg-white text-black'}`}
-            />
-            <div className="gap-4 flex flex-row ">
+            {editingId === todo.id && todo.completed != true ? (
+              <input
+                type="text"
+                className="text-black bg-white px-2 py-1 rounded focus:outline-none"
+                value={editingTitle}
+                onChange={(e) => setEditingTitle(e.target.value)}
+                autoFocus
+              />
+            ) : (
+              <div className="text-white text-lg">{todo.title}</div>
+            )}
+            <div className="gap-4 flex flex-row">
               <button
-                onClick={() => dispatch(editTodo({ id: todo.id }))}
-                disabled={todo.completed}
-                className="text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded text-md"
+                onClick={() => handleEdit(todo)}
+                className="text-white bg-blue-600 border-0 py-1 px-4 focus:outline-none hover:bg-blue-700 rounded-lg transition-colors"
               >
-                <img src={todo.completed === true ? saveIcon : editLogo} alt="Edit" className="w-6 h-6" />
+                <img src={editingId === todo.id ? saveIcon : editLogo} alt={editingId === todo.id ? "Save" : "Edit"} className="w-6 h-6" />
               </button>
               <button
-                onClick={() => dispatch(deletetodo(todo.id))}
-                className="text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-600 rounded text-md"
+                onClick={() => dispatch(deleteTodo(todo.id))}
+                className="text-white bg-red-600 border-0 py-1 px-4 focus:outline-none hover:bg-red-700 rounded-lg transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
