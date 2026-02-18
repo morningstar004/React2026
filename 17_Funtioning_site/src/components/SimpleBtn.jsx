@@ -5,7 +5,7 @@ const SimpleBtn = ({
     type= 'button',
     bgColor= 'bg-blue-600',
     textColor= 'text-white',
-    classname = '',
+    className = '',
     ...props
 }) => {
   return (
