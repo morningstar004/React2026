@@ -4,8 +4,11 @@ import { useDispatch } from "react-redux";
 import authServise from "./appWrite/auth";
 import { useEffect } from "react";
 import { Login, Logout } from "./store/authSlice";
-import { Header, Footer } from "./components/index";
+import { Header, Footer, Container, Logo, LogoutBtn } from "./components/index";
 import { Outlet } from "react-router-dom";
+import PostCard from "./components/PostCard";
+import Select from "./components/Select";
+import SimpleBtn from "./components/SimpleBtn";
 
 function App() {
   const [Loading, setLoading] = useState(true);
@@ -32,6 +35,7 @@ function App() {
         <main>
           TODO: <Outlet />
         </main>
+        <SimpleBtn />
         <Footer />
       </div>
     </div>
