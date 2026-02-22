@@ -1,16 +1,23 @@
-# React + Vite
+Auth service
+The Auth Service is the user authentication and authorisation service for managing Corda nodes and networks (CENM). It stores and controls secure user-access to network services, such as:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Nodes.
+Identity Manager
+Zone Service
+Signing Service
+Network Map (and associated network configurations and node info)
+Whenever you use the User Administration Tool to create new users, groups or roles, the Auth Service is updated to authenticate those users and their permissions. When using the remote management tools such as the CENM Command Line Interface or the web GUIs hosted on the Gateway Service, the Auth Service verifies your identity and security clearance as needed.
 
-Currently, two official plugins are available:
+You do not need to interact directly with the Auth Service once it has been installed and configured. To protect the integrity of this secure service, there is no direct API contact with the Auth Service: all front-end communications go via the Gateway Service.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Auth Service can also be configured to use Azure AD SSO.
 
-## React Compiler
+Install the Auth service
+You can install the Auth service by either:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Installing the accounts-application.jar.
+Installing the Docker image.
+Install using the docker image
+The docker image contains the application jar itself setup to run with the Initial user commands.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+To install from the docker, ensure that the config file and other required files are mounted as a shared volume when running the container.
