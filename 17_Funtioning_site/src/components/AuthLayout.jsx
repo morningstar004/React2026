@@ -1,14 +1,25 @@
 import React,{useEffect,useState} from 'react'
+import {useSelector} from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-export default function Protected({children}){
+export default function Protected({children, authentication = true}){
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const navigate = useNavigate()
+    const [loader,setLoader] = useState(true);
+    const authStatus = useSelector(state => state.auth.status)
 
     useEffect(() => {
-        const authData = localStorage.getItem("authData");
-        if (authData) {
-            setIsAuthenticated(true);
-        } else {
-            setIsAuthenticated(false);
+        if (authentication && authStatus !== authentication) {
+            navigate('/login')
+        } else if (!authentication && authStatus !== authentication  ) {
+            navigate('/')
         }
-    }, []);
+        setLoader(false)
+    }, [authStatus, navigate, authentication]);
+
+    return (
+        <div>
+
+        </div>
+    )
 }
