@@ -1,32 +1,33 @@
-import React, { useState } from "react";
+import React,{useState} from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Button, Input, Logo } from "../components/index";
-import { Login as authLogin } from "../store/authSlice";
+import { Login as authSignUp } from "../store/authSlice";
 import authServise, { AuthServise } from "../appWrite/auth";
 import { useForm } from "react-hook-form";
 
-const Login = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm();
-  const [error, setError] = useState(null);
+const SignUp = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { register, handleSubmit } = useForm();
+    const [error, setError] = useState(null);   
 
-  const login = async (data) => {
-    setError = null;
-    try {
-      const session = await authServise.login(data);
-      if (session) {
-        const userData = await authServise.getCurrentUser();
-        if (userData) {
-          dispatch(authLogin(userData));
-          navigate("/");
+    const signUp = async (data) => {
+        setError(null);
+        try {
+            const user = await authServise.createAccount(data);
+            if (user) {
+                const userData = await authServise.getCurrentUser();
+                if (userData) {
+                    dispatch(authSignUp(userData));
+                    navigate("/");
+                }
+            }
+        } catch (error) {
+            setError(error.message);
         }
-      }
-    } catch (error) {
-      setError(error.message);
     }
-  };
+
   return (
     <div className="flex items-center justify-center w-full">
       <div
@@ -38,20 +39,30 @@ const Login = () => {
           </span>
         </div>
         <h2 className="text-center text-2xl font-bold leading-tight">
-          SignIn To Your Account
+          Create New Account
         </h2>
         <p className="mt-2 text-center text-base text-black/60">
-          Don&apos;t have a account ?&nbsp;
+          Already have an account ?&nbsp;
           <Link
-            to="/signup"
+            to="/login"
             className="font-medium text-primary transition-all duration-200 hover:underline "
           >
-            SignUp
+            Login
           </Link>
         </p>
         {error && <p className="text-sm text-red-700">{error}</p>}
-        <form onSubmit={handleSubmit(login)} className="mt-8">
+        <form onSubmit={handleSubmit(signUp)} className="mt-8">
           <div className="space-y-5">
+            <Input
+              label="Full Name: "
+              placeholder="Enter your full name"
+              type="text"
+              {...register("name", {
+                required: true,
+                validate: (value) =>
+                  value.length >= 3 || "Name must be at least 3 characters",
+              })}
+            />
             <Input
               label="Email: "
               placeholder="Enter your email"
@@ -74,13 +85,13 @@ const Login = () => {
               })}
             />
             <Button type="submit" variant="primary" className="w-full">
-              Sign In
+              Sign Up
             </Button>
           </div>
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default SignUp
