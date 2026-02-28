@@ -62,7 +62,10 @@ function Todos() {
                 <img src={editingId === todo.id ? saveIcon : editLogo} alt={editingId === todo.id ? "Save" : "Edit"} className="w-6 h-6" />
               </button>
               <button
-                onClick={() => dispatch(deleteTodo(todo.id))}
+                onClick={() => {
+                  dispatch(deleteTodo(todo.id));
+                  console.log("Todo deleted:", todo.id);
+                }}
                 className="text-white bg-red-600 border-0 py-1 px-4 focus:outline-none hover:bg-red-700 rounded-lg transition-colors"
               >
                 <svg
