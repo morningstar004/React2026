@@ -1,11 +1,11 @@
-import SignupForm from '../components/SignUp'
+import SignupForm from "../components/SignUp";
 
 const Signup = () => {
   return (
-    <div className='py-8'>
+    <div className="py-8">
       <SignupForm />
     </div>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;

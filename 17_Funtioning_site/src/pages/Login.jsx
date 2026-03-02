@@ -1,12 +1,12 @@
-import React from 'react'
-import LoginForm from '../components/Login'
+import React from "react";
+import LoginForm from "../components/Login";
 
 const Login = () => {
   return (
-    <div className='py-8'>
+    <div className="py-8">
       <LoginForm />
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
