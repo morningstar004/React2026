@@ -4,11 +4,17 @@ import { store } from "./store/store.js";
 import "./index.css";
 import { Provider } from "react-redux";
 import {
-  BrowserRouter,
   createBrowserRouter,
-  RouteProvider,
+  RouterProvider,
 } from "react-router-dom";
 import App from "./App.jsx";
+import SignUp from "./components/SignUp.jsx";
+import AddPost from "./pages/AddPost.jsx";
+import Home from "./pages/Home.jsx";
+import Login from "./pages/Login.jsx";
+import EditPost from "./pages/EditPost.jsx";
+import Post from "./pages/Post.jsx";
+import AuthLayout from "./components/AuthLayout.jsx";
 
 const router = createBrowserRouter([
   {
@@ -16,25 +22,45 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: " /",
+        path: "/",
         element: <Home />,
       },
       {
-        path: " /",
-        element: <Home />,
+        path: "/login",
+        element: (
+          <AuthLayout authentication={false}>
+            <Login />
+          </AuthLayout>
+        ),
       },
       {
-        path: "/ ",
-        element: <Home />,
+        path: "/signup",
+        element: (
+          <AuthLayout authentication={false}>
+            <SignUp />
+          </AuthLayout>
+        ),
       },
       {
-        path: "/ ",
-        element: <Home />,
+        path: "/all-posts",
+        element: (
+          <AuthLayout authentication>
+            <AddPost />
+          </AuthLayout>
+        ),
       },
       {
-        path: " /",
-        element: <Home />,
+        path: "/edit-post/:slug",
+        element: (
+          <AuthLayout authentication>
+            <EditPost />
+          </AuthLayout>
+        ),
       },
+      {
+        path: "/post/:slug",
+        element: <Post />,
+      }
     ],
   },
 ]);
@@ -42,9 +68,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <RouteProvider router={router} />
-      </BrowserRouter>
+      <RouterProvider router={router} />
     </Provider>
   </StrictMode>,
 );
