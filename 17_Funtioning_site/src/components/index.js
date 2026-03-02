@@ -7,5 +7,7 @@ import Select from "./Select";
 import RTE from "./RTE";
 import Input from "./Input";
 import Button from "./Button";
+import PostForm from "./PostForm";
+import PostCard from "./PostCard";
 
-export { Header, Footer, Logo, Container, LogoutBtn, Select , RTE, Input, Button };
+export { Header, Footer, Logo, Container, LogoutBtn, Select , RTE, Input, Button, PostForm, PostCard };
