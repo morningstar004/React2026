@@ -60,3 +60,9 @@ const authServise = new AuthServise(); //object that i going to be use by the us
 
 export default authServise;
 //export defult new AuthServise()
+
+//Appwrite helps you build secure and scalable apps, faster. Leverage Appwrite's powerful APIs to stop fighting technologies and start delivering value.
+
+
+
+
