@@ -8,7 +8,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import App from "./App.jsx";
-import SignUp from "./components/SignUp.jsx";
+import SignUp from "./pages/Signup.jsx";
 import AddPost from "./pages/AddPost.jsx";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";

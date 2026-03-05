@@ -14,12 +14,12 @@ export class AuthServise {
 
   async createAccount({ email, password, name }) {
     try {
-      const userAccount = await this.account.create(
-        ID.unique(),
+      const userAccount = await this.account.create({
+        userID: ID.unique(),
         email,
         password,
-        name,
-      );
+        name
+      });
       if (userAccount) {
         //call another method
       } else {
@@ -30,9 +30,12 @@ export class AuthServise {
     }
   }
 
-  async login({ email, password }) {
+  async login(email, password) {
     try {
-      const login = await this.account.createEmailSession(email, password);
+      const login = await this.account.createEmailPasswordSession({
+        email,
+        password
+    });
     } catch (error) {
       return error;
     }
@@ -49,7 +52,9 @@ export class AuthServise {
   //delete sessions
   async logout() {
     try {
-      await this.account.deleteSessions();
+      await this.account.deleteSession({
+        sessionId: "current"
+    });
     } catch (error) {
       console.log("Appwrite service:: logout :: error ", error);
     }
