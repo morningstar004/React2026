@@ -1,11 +1,11 @@
-import Signup from "../components/index";
+import SignupComponent from "../components/Signup.jsx";
 
-const Signup = () => {
+function Signup() {
   return (
     <div className="py-8">
-      <Signup />
+      <SignupComponent />
     </div>
   );
-};
+}
 
 export default Signup;

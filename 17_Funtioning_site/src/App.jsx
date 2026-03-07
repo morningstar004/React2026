@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import authService from "./appWrite/auth";
 import { useEffect } from "react";
 import { Login, Logout } from "./store/authSlice";
-import { Header, Footer } from "./components/index";
+import { Header, Footer, Button } from "./components/index";
 import { Outlet } from "react-router-dom";
 
 function App() {
@@ -15,13 +15,13 @@ function App() {
       .getCurrentUser()
       .then((userData) => {
         if (userData) {
-          dispatch(Login({ userData }));
+          dispatch(Login(userData));
         } else {
           dispatch(Logout());
         }
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [dispatch]);
 
   return !Loading ? (
     <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
@@ -30,7 +30,7 @@ function App() {
         <main>
           TODO: <Outlet />
         </main>
-        <SimpleBtn />
+        <Button />
         <Footer />
       </div>
     </div>

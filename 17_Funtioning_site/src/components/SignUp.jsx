@@ -13,7 +13,7 @@ const Signup = () => {
     const [error, setError] = useState(null);   
 
     const create = async (data) => {
-        setError(null);
+        setError('');
         try {
             const userData = await authService.createAccount(data);
             if (userData) {
@@ -49,7 +49,7 @@ const Signup = () => {
           </Link>
         </p>
         {error && <p className="text-sm text-red-700">{error}</p>}
-        <form onSubmit={handleSubmit(signUp)} className="mt-8">
+        <form onSubmit={handleSubmit(create)} className="mt-8">
           <div className="space-y-5">
             <Input
               label="Full Name: "

@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { store } from "./store/store.js";
+import store from "./store/store.js";
 import "./index.css";
 import { Provider } from "react-redux";
 import {
@@ -8,7 +8,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import App from "./App.jsx";
-import SignUp from "./pages/Signup.jsx";
+import Signup from "./pages/Signup.jsx";
 import AddPost from "./pages/AddPost.jsx";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         path: "/signup",
         element: (
           <AuthLayout authentication={false}>
-            <SignUp />
+            <Signup />
           </AuthLayout>
         ),
       },
