@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, Select, RTE } from "../components/index";
-import { Service as appwriteServise } from "../appWrite/config";
+import appwriteService from "../appWrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -11,9 +11,8 @@ const PostForm = ({ post }) => {
     useForm({
       defaultValues: {
         title: post?.title || "",
+        slug: post?.id || "",
         content: post?.content || "",
-        slug: post?.slug || "",
-        featuredImg: post?.featuredImg || "",
         status: post?.status || "active",
       },
     });
@@ -21,35 +20,38 @@ const PostForm = ({ post }) => {
 
   const submit = async (data) => {
     if (post) {
-      const file = (await data.image[0])
-        ? appwriteServise.uploadFile(data.image[0])
+      const file = data.image[0]
+        ? await appwriteService.uploadFile(data.image[0])
         : null;
+
       if (file) {
-        appwriteServise.deleteFile(post.featuredImg);
+        appwriteService.deleteFile(post.featuredImage);
       }
-      const dbPost = await appwriteServise.updatePost(post.$id, {
+
+      const dbPost = await appwriteService.updatePost(post.$id, {
         ...data,
-        featuredImg: file ? file.$id : undefined,
+        featuredImage: file ? file.$id : undefined,
       });
+
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
       }
     } else {
-      const file = await appwriteServise.uploadFile(data.image[0]);
+      const file = await appwriteService.uploadFile(data.image[0]);
 
       if (file) {
         const fileId = file.$id;
-        data.featuredImg = fileId;
-        const dbPost = await appwriteServise.createPost({
+        data.featuredImage = fileId;
+        const dbPost = await appwriteService.createPost({
           ...data,
           userId: userData.$id,
         });
+
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
         }
       }
     }
-    navigate("/");
   };
 
   const slugTransform = useCallback((value) => {
@@ -70,10 +72,9 @@ const PostForm = ({ post }) => {
       }
     });
 
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [register, slugTransform, setValue, watch]);
+    return () => subscription.unsubscribe();
+    }, [watch, slugTransform, setValue]);
+
 
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
@@ -113,7 +114,7 @@ const PostForm = ({ post }) => {
         {post && (
           <div className="w-full mb-4">
             <img
-              src={appwriteServise.getFilePreview(post.featuredImage)}
+              src={appwriteService.getFilePreview(post.featuredImage)}
               alt={post.title}
               className="rounded-lg"
             />

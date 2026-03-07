@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Button, Input, Logo } from "../components/index";
 import { Login as authLogin } from "../store/authSlice";
-import authServise from "../appWrite/auth";
+import authService from "../appWrite/auth";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
@@ -15,16 +15,16 @@ const Login = () => {
   const login = async (data) => {
     setError = null;
     try {
-      const session = await authServise.login(data);
+      const session = await authService.login(data);
       if (session) {
-        const userData = await authServise.getCurrentUser();
+        const userData = await authService.getCurrentUser();
         if (userData) {
           dispatch(authLogin(userData));
           navigate("/");
         }
       }
     } catch (error) {
-      setError(error.message);
+      setError(`authSlice :: Login failed :: ${error.message} :: ${error.code}`);
     }
   };
   return (

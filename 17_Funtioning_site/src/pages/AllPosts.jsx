@@ -1,27 +1,33 @@
 import { useState, useEffect } from "react";
-
-import appwriteServise from "../appWrite/config";
+import appwriteService from "../appWrite/config";
 import { PostCard, Container } from "../components/index";
-import { set } from "react-hook-form";
 
 const AllPosts = () => {
   const [posts, setPosts] = useState([]);
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const data = await appwriteServise.getAllPosts();
-      setPosts(data.posts);
-    };
-    fetchPosts();
-  }, []);
+  // useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     const data = await appwriteService.getAllPosts();
+  //     setPosts(data.posts);
+  //   };
+  //   fetchPosts();
+  // }, []);
+  useEffect(() => {}, []);
 
-  appwriteServise.getPosts([]).then((posts) => setPosts(posts));
-
+  appwriteService.getPosts([]).then((posts) => {
+    if (posts) {
+      setPosts(posts.documents);
+    }
+  });
   return (
-    <div className="py-8">
+    <div className="py-8 w-full">
       <Container>
         <div className="flex- flex-wrap ">
           {posts.map((post) => (
-            <PostCard key={post.$id} post={post} />
+            <PostCard
+              key={post.$id}
+              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
+              post={post}
+            />
           ))}
         </div>
       </Container>

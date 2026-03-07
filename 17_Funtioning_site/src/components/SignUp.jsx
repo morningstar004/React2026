@@ -1,30 +1,28 @@
-import React,{useState} from 'react'
+import {useState} from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Button, Input, Logo } from "../components/index";
-import { Login as authSignUp } from "../store/authSlice";
-import authServise, { AuthServise } from "../appWrite/auth";
+import { Button, Input, Logo } from "./index";
+import {Login} from "../store/authSlice";
+import authService from "../appWrite/auth";
 import { useForm } from "react-hook-form";
 
-const SignUp = () => {
+const Signup = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
     const [error, setError] = useState(null);   
 
-    const signUp = async (data) => {
+    const create = async (data) => {
         setError(null);
         try {
-            const user = await authServise.createAccount(data);
-            if (user) {
-                const userData = await authServise.getCurrentUser();
-                if (userData) {
-                    dispatch(authSignUp(userData));
-                    navigate("/");
-                }
+            const userData = await authService.createAccount(data);
+            if (userData) {
+                const userData = await authService.getCurrentUser()
+                if(userData) dispatch(Login(userData));
+                navigate("/")
             }
         } catch (error) {
-            setError(error.message);
+          setError(`authSlice :: userCreation failed :: ${error.message} :: ${error.code}`);
         }
     }
 
@@ -94,4 +92,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default Signup

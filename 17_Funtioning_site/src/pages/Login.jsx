@@ -1,9 +1,9 @@
-import LoginForm from "../components/Login.jsx";
+import Login from '../components/index';
 
 const Login = () => {
   return (
     <div className="py-8">
-      <LoginForm />
+      <Login />
     </div>
   );
 };

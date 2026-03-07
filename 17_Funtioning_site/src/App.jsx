@@ -1,20 +1,17 @@
 import { useState } from "react";
 import "./App.css";
 import { useDispatch } from "react-redux";
-import authServise from "./appWrite/auth";
+import authService from "./appWrite/auth";
 import { useEffect } from "react";
 import { Login, Logout } from "./store/authSlice";
-import { Header, Footer, Container, Logo, LogoutBtn } from "./components/index";
+import { Header, Footer } from "./components/index";
 import { Outlet } from "react-router-dom";
-import PostCard from "./components/PostCard";
-import Select from "./components/Select";
-import SimpleBtn from "./components/SimpleBtn";
 
 function App() {
   const [Loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
-    authServise
+    authService
       .getCurrentUser()
       .then((userData) => {
         if (userData) {
@@ -23,9 +20,7 @@ function App() {
           dispatch(Logout());
         }
       })
-      .finally(() => {
-        setLoading(false);
-      });
+      .finally(() => setLoading(false));
   }, []);
 
   return !Loading ? (

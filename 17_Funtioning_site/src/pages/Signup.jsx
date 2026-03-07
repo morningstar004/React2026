@@ -1,9 +1,9 @@
-import SignupForm from "../components/SignUp";
+import Signup from "../components/index";
 
 const Signup = () => {
   return (
     <div className="py-8">
-      <SignupForm />
+      <Signup />
     </div>
   );
 };
