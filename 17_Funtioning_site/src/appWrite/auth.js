@@ -1,7 +1,7 @@
 import conf from "../conf/conf";
 import { Client, ID, Account } from "appwrite";
 
-export class AuthServise {
+export class AuthService {
   client = new Client();
   account;
 
@@ -61,10 +61,10 @@ export class AuthServise {
   }
 }
 
-const authServise = new AuthServise(); //object that i going to be use by the user to store authData
+const authService = new AuthService(); //object that i going to be use by the user to store authData
 
-export default authServise;
-//export defult new AuthServise()
+export default authService;
+//export defult new AuthService()
 
 //Appwrite helps you build secure and scalable apps, faster. Leverage Appwrite's powerful APIs to stop fighting technologies and start delivering value.
 
