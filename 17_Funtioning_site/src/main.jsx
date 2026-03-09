@@ -10,6 +10,7 @@ import {
 import App from "./App.jsx";
 import Signup from "./pages/Signup.jsx";
 import AddPost from "./pages/AddPost.jsx";
+import AllPosts from "./pages/AllPosts.jsx";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import EditPost from "./pages/EditPost.jsx";
@@ -43,6 +44,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/all-posts",
+        element: (
+          <AuthLayout authentication>
+            {" "}
+            <AllPosts />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/add-post",
         element: (
           <AuthLayout authentication>
             {" "}
