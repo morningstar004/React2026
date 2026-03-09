@@ -16,7 +16,7 @@ const PostForm = ({ post }) => {
         status: post?.status || "active",
       },
     });
-  const userData = useSelector((state) => state.user.userData);
+  const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
     if (post) {

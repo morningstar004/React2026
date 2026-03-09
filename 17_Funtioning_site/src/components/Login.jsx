@@ -13,18 +13,18 @@ const Login = () => {
   const [error, setError] = useState(null);
 
   const login = async (data) => {
-    setError(' ');
+    setError(" ");
     try {
       const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
-        if (userData) {
-          dispatch(authLogin(userData));
-          navigate("/");
-        }
+        if (userData) dispatch(authLogin({ userData }));//not understand this line
+        navigate("/");
       }
     } catch (error) {
-      setError(`authSlice :: Login failed :: ${error.message} :: ${error.code}`);
+      setError(
+        `authSlice :: Login failed :: ${error.message} :: ${error.code}`,
+      );
     }
   };
   return (
