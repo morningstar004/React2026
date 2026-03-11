@@ -30,7 +30,7 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center w-full">
       <div
-        className={`mx-auto w-full max-w-lg bg-grey-100 rounded-xl p-10 border border-black/20`}
+        className={`mx-auto w-full bg-[#A2D2FF] max-w-lg bg-grey-100 rounded-xl p-10 border border-black/20`}
       >
         <div className="mb-2 flex justify-center">
           <span className="inline-block w-full max-w-25">
@@ -44,7 +44,7 @@ const Login = () => {
           Don&apos;t have a account ?&nbsp;
           <Link
             to="/signup"
-            className="font-medium text-primary transition-all duration-200 hover:underline "
+            className="font-medium text-primary transition-all duration-300 hover:underline "
           >
             SignUp
           </Link>
@@ -73,7 +73,7 @@ const Login = () => {
                   value.length >= 6 || "Password must be at least 6 characters",
               })}
             />
-            <Button type="submit" variant="primary" className="w-full">
+            <Button type="submit" variant="primary" className="w-full text-black bg-[#FFAFCC] hover:bg-[#FFC8DD] focus:ring focus:ring-[#00B4D8] duration-300">
               Sign In
             </Button>
           </div>

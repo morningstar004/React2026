@@ -24,13 +24,13 @@ function App() {
   }, [dispatch]);
 
   return !Loading ? (
-    <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
+    <div className="min-h-screen flex flex-wrap content-between bg-[#BDE0FE]">
       <div className="w-full block">
         <Header />
-        <main>
-          TODO: <Outlet />
+        <main className="container mx-auto h-full">
+          <Outlet />
         </main>
-        <Button />
+        <Button />         
         <Footer />
       </div>
     </div>
