@@ -1,7 +1,15 @@
 import { Editor } from "@tinymce/tinymce-react";
+import { useRef } from "react";
 import { Controller } from "react-hook-form";
 
 export default function RTE({ name, control, label, defaultValue = "" }) {
+  const editorRef = useRef(null);
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+    }
+  };
+
   return (
     <div className="w-full">
       {label && <label className="inline-block md-1 pl-1">{label}</label>}
@@ -10,6 +18,8 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
         control={control}
         render={({ field: { onChange } }) => (
           <Editor
+            apiKey={import.meta.env.VITE_TINY_MCE_API_KEY}
+            onInit={(_evt, editor) => (editorRef.current = editor)}
             initialValue={defaultValue}
             init={{
               initialValue: defaultValue,
@@ -44,8 +54,9 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
             }}
             onEditorChange={onChange}
           />
-        )}
+        )}  
       />
+      <button onClick={log}>Log editor content</button>
     </div>
   );
 }
