@@ -21,7 +21,7 @@ const AllPosts = () => {
   return (
     <div className="py-8 w-full">
       <Container>
-        <div className="flex- flex-wrap ">
+        <div className="flex gap-4 flex-wrap ">
           {posts.map((post) => (
             <PostCard
               key={post.$id}
