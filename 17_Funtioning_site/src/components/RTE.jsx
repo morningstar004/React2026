@@ -26,35 +26,28 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
               height: 500,
               menubar: true,
               plugins: [
-                "image",
-                "advlist",
+                // Core editing features
+                "anchor",
                 "autolink",
-                "lists",
-                "link",
-                "image",
                 "charmap",
-                "preview",
-                "anchor",
-                "searchreplace",
-                "visualblocks",
-                "code",
-                "fullscreen",
-                "insertdatetime",
+                "codesample",
+                "emoticons",
+                "link",
+                "lists",
                 "media",
+                "searchreplace",
                 "table",
-                "code",
-                "help",
+                "visualblocks",
                 "wordcount",
-                "anchor",
               ],
               toolbar:
-                "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
+                "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
               content_style:
                 "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
             }}
             onEditorChange={onChange}
           />
-        )}  
+        )}
       />
       <button onClick={log}>Log editor content</button>
     </div>
