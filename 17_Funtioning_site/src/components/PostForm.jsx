@@ -78,14 +78,17 @@ const PostForm = ({ post }) => {
 
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-      <div className="w-2/3 px-2">
-        <Input
+      <div className="w-2/3 px-2 gap-2 flex flex-col">
+        <div>
+          <Input
           label="Title :"
           placeholder="Title"
-          className="mb-4"
+          className="mb-4 w-xl"
           {...register("title", { required: true })}
         />
-        <Input
+        </div>
+        <div>
+          <Input
           label="Slug :"
           placeholder="Slug"
           className="mb-4"
@@ -96,21 +99,26 @@ const PostForm = ({ post }) => {
             });
           }}
         />
-        <RTE
+        </div>
+        <div>
+          <RTE
           label="Content :"
           name="content"
           control={control}
           defaultValue={getValues("content")}
         />
+        </div>
       </div>
-      <div className="w-1/3 px-2">
-        <Input
+      <div className="w-1/3 px-2 gap-2 flex flex-col">
+        <div>
+          <Input
           label="Featured Image :"
           type="file"
           className="mb-4"
           accept="image/png, image/jpg, image/jpeg, image/gif"
           {...register("image", { required: !post })}
-        />
+          />
+        </div>
         {post && (
           <div className="w-full mb-4">
             <img
@@ -120,19 +128,23 @@ const PostForm = ({ post }) => {
             />
           </div>
         )}
-        <Select
+        <div>
+          <Select
           options={["active", "inactive"]}
           label="Status"
           className="mb-4"
           {...register("status", { required: true })}
         />
-        <Button
+        </div>
+        <div>
+          <Button
           type="submit"
           bgColor={post ? "bg-green-500" : undefined}
-          className="w-full"
+          className="w-full bg-[#3B82F6] text-white"
         >
           {post ? "Update" : "Submit"}
         </Button>
+        </div>
       </div>
     </form>
   );
