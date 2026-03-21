@@ -1,7 +1,7 @@
 import { Editor } from "@tinymce/tinymce-react";
 import { useRef } from "react";
 import { Controller } from "react-hook-form";
-
+import conf from "../conf/conf";
 export default function RTE({ name, control, label, defaultValue = "" }) {
   const editorRef = useRef(null);
   const log = () => {
@@ -18,7 +18,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
         control={control}
         render={({ field: { onChange } }) => (
           <Editor
-            apiKey={import.meta.env.VITE_TINY_MCE_API_KEY}
+            apiKey={conf.tinyMCEAPIKey}
             onInit={(_evt, editor) => (editorRef.current = editor)}
             initialValue={defaultValue}
             init={{
