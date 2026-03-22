@@ -83,7 +83,7 @@ const PostForm = ({ post }) => {
           <Input
           label="Title :"
           placeholder="Title"
-          className="mb-4 w-xl"
+          className="mb-4 w-xl duration-200 focus:ring-2 "
           {...register("title", { required: true })}
         />
         </div>
