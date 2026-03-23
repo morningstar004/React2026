@@ -132,7 +132,7 @@ const PostForm = ({ post }) => {
             options={["active", "inactive"]}
             label="Status"
             
-            {...register("status", { required: false })}
+            {...register("status", { required: true })}
           />
         </div>
         <div>
