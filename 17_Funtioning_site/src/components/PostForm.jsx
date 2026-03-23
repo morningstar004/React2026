@@ -73,50 +73,49 @@ const PostForm = ({ post }) => {
     });
 
     return () => subscription.unsubscribe();
-    }, [watch, slugTransform, setValue]);
-
+  }, [watch, slugTransform, setValue]);
 
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
       <div className="w-2/3 px-2 gap-2 flex flex-col">
         <div>
           <Input
-          label="Title :"
-          placeholder="Title"
-          className="mb-4 w-xl duration-200 focus:ring-2 "
-          {...register("title", { required: true })}
-        />
+            label="Title :"
+            placeholder="Title"
+            className="mb-4 w-xl duration-200"
+            {...register("title", { required: true })}
+          />
         </div>
         <div>
           <Input
-          label="Slug :"
-          placeholder="Slug"
-          className="mb-4"
-          {...register("slug", { required: true })}
-          onInput={(e) => {
-            setValue("slug", slugTransform(e.currentTarget.value), {
-              shouldValidate: true,
-            });
-          }}
-        />
+            label="Slug :"
+            placeholder="Slug"
+            className="mb-4"
+            {...register("slug", { required: true })}
+            onInput={(e) => {
+              setValue("slug", slugTransform(e.currentTarget.value), {
+                shouldValidate: true,
+              });
+            }}
+          />
         </div>
         <div>
           <RTE
-          label="Content :"
-          name="content"
-          control={control}
-          defaultValue={getValues("content")}
-        />
+            label="Content :"
+            name="content"
+            control={control}
+            defaultValue={getValues("content")}
+          />
         </div>
       </div>
       <div className="w-1/3 px-2 gap-2 flex flex-col">
         <div>
           <Input
-          label="Featured Image :"
-          type="file"
-          className="mb-4"
-          accept="image/png, image/jpg, image/jpeg, image/gif"
-          {...register("image", { required: !post })}
+            label="Featured Image :"
+            type="file"
+            className="mb-4"
+            accept="image/png, image/jpg, image/jpeg, image/gif"
+            {...register("image", { required: !post })}
           />
         </div>
         {post && (
@@ -130,20 +129,20 @@ const PostForm = ({ post }) => {
         )}
         <div>
           <Select
-          options={["active", "inactive"]}
-          label="Status"
-          className="mb-4"
-          {...register("status", { required: true })}
-        />
+            options={["active", "inactive"]}
+            label="Status"
+            
+            {...register("status", { required: false })}
+          />
         </div>
         <div>
           <Button
-          type="submit"
-          bgColor={post ? "bg-green-500" : undefined}
-          className="w-full bg-[#3B82F6] text-white"
-        >
-          {post ? "Update" : "Submit"}
-        </Button>
+            type="submit"
+            bgColor={post ? "bg-green-500" : undefined}
+            className="w-full bg-[#3B82F6] text-white"
+          >
+            {post ? "Update" : "Submit"}
+          </Button>
         </div>
       </div>
     </form>
