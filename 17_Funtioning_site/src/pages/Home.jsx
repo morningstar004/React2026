@@ -1,19 +1,38 @@
 import { useEffect, useState } from "react";
 import appwriteService from "../appWrite/config";
 import { Container, PostCard } from "../components";
+import { useSelector } from "react-redux";
 
 function Home() {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const authStatus = useSelector((state) => state.auth.status);
 
   useEffect(() => {
+    setLoading(true);
     appwriteService.getPosts().then((posts) => {
       if (posts) {
         setPosts(posts.documents);
       }
+      setLoading(false);
     });
   }, []);
 
-  if (posts.length === 0) {
+  if (loading) {
+    return (
+      <div className="w-full py-8 mt-4 text-center">
+        <Container>
+          <div className="flex flex-wrap">
+            <div className="p-2 w-full">
+              <h1 className="text-2xl font-bold">Loading posts...</h1>
+            </div>
+          </div>
+        </Container>
+      </div>
+    );
+  }
+
+  if (posts.length === 0 && !authStatus) {
     return (
       <div className="w-full py-8 mt-4 text-center">
         <Container>
@@ -28,6 +47,21 @@ function Home() {
       </div>
     );
   }
+
+  if (posts.length === 0) {
+    return (
+      <div className="w-full py-8 mt-4 text-center">
+        <Container>
+          <div className="flex flex-wrap">
+            <div className="p-2 w-full">
+              <h1 className="text-2xl font-bold">No posts available</h1>
+            </div>
+          </div>
+        </Container>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full py-8">
       <Container>

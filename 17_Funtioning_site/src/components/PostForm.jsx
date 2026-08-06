@@ -17,26 +17,41 @@ const PostForm = ({ post }) => {
       },
     });
   const userData = useSelector((state) => state.auth.userData);
+  const authStatus = useSelector((state) => state.auth.status);
 
   const submit = async (data) => {
     if (post) {
-      const file = data.image[0]
-        ? await appwriteService.uploadFile(data.image[0])
-        : null;
+      let file = null;
+      // Only upload if data.image[0] exists and is a File object (not a URL string)
+      if (data.image[0] && data.image[0] instanceof File) {
+        file = await appwriteService.uploadFile(data.image[0]);
 
-      if (file) {
-        appwriteService.deleteFile(post.featuredImg);
+        if (file) {
+          appwriteService.deleteFile(post.featuredImg);
+        }
       }
 
       const dbPost = await appwriteService.updatePost(post.$id, {
         ...data,
-        featuredImg: file ? file.$id : undefined,
+        featuredImg: file ? file.$id : post.featuredImg,
       });
 
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
       }
     } else {
+      if (!authStatus || !userData) {
+        alert("Please login to create a post");
+        navigate("/login");
+        return;
+      }
+
+      // Check if image exists and is a File object
+      if (!data.image || !data.image[0] || !(data.image[0] instanceof File)) {
+        alert("Please upload an image");
+        return;
+      }
+
       const file = await appwriteService.uploadFile(data.image[0]);
 
       if (file) {
