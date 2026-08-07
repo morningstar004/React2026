@@ -2,16 +2,15 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
+  let [count, setCount] = useState(7);
 
-  let [count, setCount] = useState(7)
-
-  const addValue = function(){
+  const addValue = function () {
     setCount(count + 1);
-  }
+  };
 
-  const removeValue = function(){
+  const removeValue = function () {
     setCount(count - 1);
-  }
+  };
 
   return (
     <>
