@@ -1,9 +1,9 @@
 import { Editor } from "@tinymce/tinymce-react";
 import { Controller } from "react-hook-form";
 import conf from "../conf/conf";
-export default function RTE({ name, control, label, defaultValue = "", rules, error }) {
+export default function RTE({ name, control, label, defaultValue = "", rules, error, invalid = false, ...props }) {
   return (
-    <div className="w-full">
+    <div className={`w-full rounded-lg ${invalid ? "ring-2 ring-rose-500 ring-offset-2" : ""}`} aria-invalid={invalid || undefined} {...props}>
       {label && <label className="mb-1 block pl-1 text-sm font-medium text-slate-700">{label}</label>}
       <Controller
         name={name || "content"}

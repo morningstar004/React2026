@@ -29,7 +29,12 @@ export class Service {
         },
       );
     } catch (error) {
-      console.log("Appwrite servise :: createPost :: error ", error);
+      if (error?.message?.includes('Unknown attribute: "userId"')) {
+        throw new Error(
+          'The Appwrite "articles" collection is missing the "userId" attribute. Add an optional string attribute named "userId" in Appwrite, then try again.',
+        );
+      }
+      throw error;
     }
   }
 

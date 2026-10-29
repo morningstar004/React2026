@@ -164,7 +164,20 @@ const PostForm = ({ post }) => {
     }
   };
 
-  const onInvalid = () => notify("Check the highlighted fields before saving.", "error");
+  const onInvalid = (invalidFields) => {
+    const firstError = Object.values(invalidFields)[0];
+    const firstField = Object.keys(invalidFields)[0];
+    const message = firstError?.message || "Complete the required fields before publishing.";
+    notify(message, "error");
+
+    requestAnimationFrame(() => {
+      const field = document.querySelector(`[data-form-field="${firstField}"]`);
+      field?.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (firstField === "image") fileInput.current?.focus();
+      else if (firstField === "content") field?.querySelector("iframe")?.focus();
+      else field?.focus?.();
+    });
+  };
   const previewSrc = imagePreview || (post?.featuredImg ? appwriteService.getFilePreview(post.featuredImg) : "");
 
   return (
@@ -177,6 +190,9 @@ const PostForm = ({ post }) => {
           label="Post title"
           placeholder="A clear, specific title"
           maxLength={120}
+          aria-invalid={Boolean(errors.title)}
+          className={errors.title ? "border-rose-500 focus:border-rose-500 focus:ring-rose-100" : ""}
+          data-form-field="title"
           aria-describedby="title-help title-error"
           {...register("title", {
             required: "Add a title for your post.",
@@ -193,6 +209,9 @@ const PostForm = ({ post }) => {
             autoCapitalize="none"
             autoComplete="off"
             readOnly={Boolean(post)}
+            aria-invalid={Boolean(errors.slug)}
+            className={errors.slug ? "border-rose-500 focus:border-rose-500 focus:ring-rose-100" : ""}
+            data-form-field="slug"
             aria-describedby="slug-help slug-error"
             {...slugRegistration}
             onChange={(event) => {
@@ -230,11 +249,17 @@ const PostForm = ({ post }) => {
           control={control}
           defaultValue={post?.content || ""}
           rules={{
-            validate: (value) =>
-              value?.replace(/<[^>]*>/g, " ").replace(/&nbsp;|&#160;/g, " ").trim() ||
-              "Write a little about your topic before saving.",
+            validate: (value) => {
+              const plainText = new DOMParser()
+                .parseFromString(value || "", "text/html")
+                .body.textContent?.replace(/\u00a0/g, " ")
+                .trim();
+              return Boolean(plainText) || "Write a little about your topic before saving.";
+            },
           }}
           error={errors.content?.message}
+          invalid={Boolean(errors.content)}
+          data-form-field="content"
         />
       </div>
 
@@ -242,7 +267,7 @@ const PostForm = ({ post }) => {
         <section>
           <h2 className="text-sm font-semibold text-slate-800">Cover image</h2>
           <p className="mt-1 text-xs leading-relaxed text-slate-500">Choose an image that gives readers a preview of your story.</p>
-          <div className="relative mt-3 flex min-h-32 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-300 bg-white px-4 py-5 text-center transition hover:border-indigo-400 hover:bg-indigo-50/40 focus-within:ring-4 focus-within:ring-indigo-100">
+          <div data-form-field="image" className={`relative mt-3 flex min-h-32 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed bg-white px-4 py-5 text-center transition hover:border-indigo-400 hover:bg-indigo-50/40 focus-within:ring-4 focus-within:ring-indigo-100 ${errors.image ? "border-rose-500 ring-4 ring-rose-100" : "border-slate-300"}`}>
             <input
               {...imageRegistration}
               ref={(element) => {
@@ -252,6 +277,7 @@ const PostForm = ({ post }) => {
               type="file"
               accept="image/jpeg,image/png,image/webp,image/gif"
               aria-label="Choose a cover image"
+              aria-invalid={Boolean(errors.image)}
               className="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
               onChange={handleImageChange}
             />
@@ -290,6 +316,8 @@ const PostForm = ({ post }) => {
               { value: "inactive", label: "Draft" },
             ]}
             aria-describedby="visibility-help"
+            aria-invalid={Boolean(errors.status)}
+            data-form-field="status"
             {...register("status", { required: true })}
           />
           <p id="visibility-help" className="mt-2 text-xs leading-relaxed text-slate-500">Published posts appear in the feed. Drafts stay hidden until you publish them.</p>
