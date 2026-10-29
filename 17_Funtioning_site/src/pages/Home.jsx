@@ -20,11 +20,11 @@ function Home() {
 
   if (loading) {
     return (
-      <div className="w-full py-8 mt-4 text-center">
+      <div className="w-full py-16 text-center">
         <Container>
           <div className="flex flex-wrap">
             <div className="p-2 w-full">
-              <h1 className="text-2xl font-bold">Loading posts...</h1>
+              <h1 className="text-lg font-medium text-slate-500" role="status">Loading posts…</h1>
             </div>
           </div>
         </Container>
@@ -34,12 +34,12 @@ function Home() {
 
   if (posts.length === 0 && !authStatus) {
     return (
-      <div className="w-full py-8 mt-4 text-center">
+      <div className="w-full py-20 text-center">
         <Container>
           <div className="flex flex-wrap">
             <div className="p-2 w-full">
-              <h1 className="text-2xl font-bold hover:text-gray-500">
-                Login to read posts
+              <h1 className="text-2xl font-bold text-slate-800">
+                Sign in to explore the stories
               </h1>
             </div>
           </div>
@@ -50,11 +50,11 @@ function Home() {
 
   if (posts.length === 0) {
     return (
-      <div className="w-full py-8 mt-4 text-center">
+      <div className="w-full py-20 text-center">
         <Container>
           <div className="flex flex-wrap">
             <div className="p-2 w-full">
-              <h1 className="text-2xl font-bold">No posts available</h1>
+              <h1 className="text-2xl font-bold text-slate-800">No posts available yet</h1>
             </div>
           </div>
         </Container>
@@ -63,13 +63,16 @@ function Home() {
   }
 
   return (
-    <div className="w-full py-8">
+    <div className="w-full py-10 sm:py-14">
       <Container>
-        <div className="flex flex-wrap">
+        <div className="mb-8 flex flex-col gap-2 sm:mb-10">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-600">Ideas worth sharing</p>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Stories from the community</h1>
+          <p className="max-w-2xl text-slate-600">Thoughts, lessons, and inspiration from writers like you.</p>
+        </div>
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {posts.map((post) => (
-            <div key={post.$id} className="p-2 w-1/4">
-              <PostCard {...post} />
-            </div>
+            <PostCard key={post.$id} {...post} />
           ))}
         </div>
       </Container>

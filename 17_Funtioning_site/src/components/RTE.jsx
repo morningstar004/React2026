@@ -1,25 +1,16 @@
 import { Editor } from "@tinymce/tinymce-react";
-import { useRef } from "react";
 import { Controller } from "react-hook-form";
 import conf from "../conf/conf";
 export default function RTE({ name, control, label, defaultValue = "" }) {
-  const editorRef = useRef(null);
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
-
   return (
     <div className="w-full">
-      {label && <label className="inline-block md-1 pl-1">{label}</label>}
+      {label && <label className="mb-1 block pl-1 text-sm font-medium text-slate-700">{label}</label>}
       <Controller
         name={name || "content"}
         control={control}
         render={({ field: { onChange } }) => (
           <Editor
             apiKey={conf.tinyMCEAPIKey}
-            onInit={(_evt, editor) => (editorRef.current = editor)}
             initialValue={defaultValue}
             init={{
               initialValue: defaultValue,
@@ -49,7 +40,6 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
           />
         )}
       />
-      <button onClick={log}>Log editor content</button>
     </div>
   );
 }

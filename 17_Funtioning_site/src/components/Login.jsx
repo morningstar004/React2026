@@ -13,7 +13,7 @@ const Login = () => {
   const [error, setError] = useState(null);
 
   const login = async (data) => {
-    setError(" ");
+    setError("");
     try {
       const session = await authService.login(data);
       if (session) {
@@ -30,7 +30,7 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center w-full">
       <div
-        className={`mx-auto w-full bg-[#A2D2FF] max-w-lg bg-grey-100 rounded-xl p-10 border border-black/20`}
+        className="mx-auto w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/60 sm:p-10"
       >
         <div className="mb-2 flex justify-center">
           <span className="inline-block w-full max-w-25">
@@ -49,7 +49,7 @@ const Login = () => {
             SignUp
           </Link>
         </p>
-        {error && <p className="text-sm text-red-700">{error}</p>}
+        {error && <p role="alert" className="mt-4 rounded-lg bg-rose-50 p-3 text-sm text-rose-700">{error}</p>}
         <form onSubmit={handleSubmit(login)} className="mt-8">
           <div className="space-y-5">
             <Input
@@ -73,7 +73,7 @@ const Login = () => {
                   value.length >= 6 || "Password must be at least 6 characters",
               })}
             />
-            <Button type="submit" variant="primary" className="w-full text-black bg-[#FFAFCC] hover:bg-[#FFC8DD] focus:ring focus:ring-[#00B4D8] duration-300">
+            <Button type="submit" className="w-full">
               Sign In
             </Button>
           </div>

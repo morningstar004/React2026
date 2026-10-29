@@ -1,17 +1,16 @@
 import { useId, forwardRef } from "react";
 
 const Input = forwardRef(function Input(
-  { lable, type = "text", className = " ", ...props },
+  { label, type = "text", className = "", ...props },
   ref,
 ) {
   const id = useId();
   return (
     <div className="w-full">
-      {lable && <lable className='inline-block mb-1 pl-1' htmlfor={id}>{lable}</lable>}
-      <input 
+      {label && <label className="mb-1 block pl-1 text-sm font-medium text-slate-700" htmlFor={id}>{label}</label>}
+      <input
       type={type}
-      className={`px-3 py-2 rounded-lg focus:ring-[#FFAFCC] hover: border-[#FFC8DD] focus:ring-2  focus:ring-opacity-30 bg-white text-black outline-none focus:bg-green-50 duration-200 border border-grey-200
-        w-full${className}`}
+      className={`w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none transition placeholder:text-slate-400 hover:border-slate-400 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 ${className}`}
         ref={ref}
         {...props}
         id={id}

@@ -8,7 +8,7 @@ export default function Button({
 }) {
   return (
     <button
-      className={`px-4 py-2 rounded-lg ${textColor} ${bgColor} ${className}`}
+      className={`inline-flex items-center justify-center rounded-lg px-4 py-2 font-semibold transition focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-indigo-200 disabled:cursor-not-allowed disabled:opacity-60 ${textColor} ${bgColor || "bg-indigo-600 hover:bg-indigo-700"} ${className}`}
       {...props}
     >
       {children}

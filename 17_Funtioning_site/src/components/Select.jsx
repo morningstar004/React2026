@@ -1,17 +1,16 @@
 import React, { useId } from "react";
 
-const Select = ({ options, lable, className, ...props }, ref) => {
+const Select = React.forwardRef(function Select({ options, label, className = "", ...props }, ref) {
   const id = useId();
 
   return (
     <div className="w-full ">
-      {lable && <lable htmlFor={id} className='inline-block mb-1 pl-1'></lable>}
+      {label && <label htmlFor={id} className="mb-1 block pl-1 text-sm font-medium text-slate-700">{label}</label>}
       <select
         {...props}
         ref={ref}
         id={id}
-        className={`${className} px-3 py-2 rounded-lg bg-white text-black outline-none focus:bg-green-50 duration-200 border border-grey-200
-        w-full`}
+        className={`w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 ${className}`}
       >
         {options?.map((option) => (
           <option value={option} key={option}>
@@ -21,6 +20,6 @@ const Select = ({ options, lable, className, ...props }, ref) => {
       </select>
     </div>
   );
-};
+});
 
-export default React.forwardRef(Select);
+export default Select;

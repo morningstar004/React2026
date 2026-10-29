@@ -91,13 +91,13 @@ const PostForm = ({ post }) => {
   }, [watch, slugTransform, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-      <div className="w-2/3 px-2 gap-2 flex flex-col">
+    <form onSubmit={handleSubmit(submit)} className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(16rem,1fr)]">
+      <div className="flex min-w-0 flex-col gap-2">
         <div>
           <Input
             label="Title :"
             placeholder="Title"
-            className="mb-4 w-xl duration-200"
+            className="mb-4"
             {...register("title", { required: true })}
           />
         </div>
@@ -123,7 +123,7 @@ const PostForm = ({ post }) => {
           />
         </div>
       </div>
-      <div className="w-1/3 px-2 gap-2 flex flex-col">
+      <div className="flex min-w-0 flex-col gap-2">
         <div>
           <Input
             label="Featured Image :"

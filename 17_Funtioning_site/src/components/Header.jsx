@@ -36,21 +36,21 @@ const Header = () => {
     },
   ];
   return (
-    <header className="py-2 font-sans font-semibold shadow bg-[#A2D2FF]">
+    <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/90 py-2 font-sans shadow-sm backdrop-blur">
       <Container>
-        <nav className="flex">
-          <div className="mr-4 ">
+        <nav className="flex min-h-14 flex-wrap items-center gap-3">
+          <div className="mr-auto">
             <Link to="/">
               <Logo width="70px"></Logo>
             </Link>
           </div>
-          <ul className="flex ml-auto gap-1.5 ">
+          <ul className="ml-auto flex flex-wrap items-center justify-end gap-1 sm:gap-2">
             {navItems.map((item) =>
               item.active ? (
                 <li key={item.name}>
                   <button
                     onClick={() => Navigate(item.slug)}
-                    className="inline-block px-6 py-2 duration-200 hover:bg-[#FFC8DD] focus:ring focus:ring-[#FFAFCC] rounded-full"
+                    className="inline-block rounded-full px-3 py-2 text-sm text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700 sm:px-4"
                   >
                     {item.name}
                   </button>

@@ -1,10 +1,9 @@
 import { useState } from "react";
-import "./App.css";
 import { useDispatch } from "react-redux";
 import authService from "./appWrite/auth";
 import { useEffect } from "react";
 import { Login, Logout } from "./store/authSlice";
-import { Header, Footer, Button } from "./components/index";
+import { Header, Footer } from "./components/index";
 import { Outlet } from "react-router-dom";
 
 function App() {
@@ -24,17 +23,18 @@ function App() {
   }, [dispatch]);
 
   return !Loading ? (
-    <div className="min-h-screen flex flex-wrap content-between bg-[#BDE0FE]">
-      <div className="w-full block">
+    <div className="app-shell min-h-screen flex flex-col">
         <Header />
-        <main className="container mx-auto h-full">
+        <main className="container mx-auto w-full flex-1">
           <Outlet />
         </main>
-        <Button />         
         <Footer />
-      </div>
     </div>
-  ) : null;
+  ) : (
+    <div className="grid min-h-screen place-items-center bg-slate-50 text-sm font-medium text-slate-500" role="status">
+      Loading Blogspace…
+    </div>
+  );
 }
 
 export default App;
