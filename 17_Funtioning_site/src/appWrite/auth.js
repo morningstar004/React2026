@@ -34,7 +34,7 @@ export class AuthService {
         password
     );
     } catch (error) {
-      console.log("Appwrite service:: login :: error", error);
+      throw error;
     }
   }
 
@@ -42,7 +42,10 @@ export class AuthService {
     try {
       return await this.account.get();
     } catch (error) {
-      console.log("Appwrite service:: getCurrentUser :: error", error);
+      // No session is the normal signed-out state, not an application error.
+      if (error?.code !== 401) {
+        console.error("Appwrite service:: getCurrentUser :: error", error);
+      }
     }
     return null;
   }

@@ -10,7 +10,7 @@ const AllPosts = () => {
   useEffect(() => {
     let active = true;
     appwriteService
-      .getPosts([])
+      .getPosts()
       .then((result) => {
         if (!active) return;
         if (result) setPosts(result.documents);

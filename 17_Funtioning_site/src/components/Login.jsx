@@ -23,7 +23,9 @@ const Login = () => {
       }
     } catch (error) {
       setError(
-        `authSlice :: Login failed :: ${error.message} :: ${error.code}`,
+        error?.code === 429
+          ? "Too many login attempts. Wait a little while, then try again."
+          : error?.message || "Unable to sign in. Check your details and try again.",
       );
     }
   };

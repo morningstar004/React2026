@@ -9,14 +9,27 @@ function Home() {
   const authStatus = useSelector((state) => state.auth.status);
 
   useEffect(() => {
-    setLoading(true);
-    appwriteService.getPosts().then((posts) => {
-      if (posts) {
-        setPosts(posts.documents);
-      }
+    if (!authStatus) {
+      setPosts([]);
       setLoading(false);
-    });
-  }, []);
+      return;
+    }
+
+    let active = true;
+    setLoading(true);
+    appwriteService
+      .getPosts()
+      .then((result) => {
+        if (active && result) setPosts(result.documents);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [authStatus]);
 
   if (loading) {
     return (

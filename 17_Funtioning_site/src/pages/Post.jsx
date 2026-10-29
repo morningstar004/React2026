@@ -4,11 +4,14 @@ import appwriteService from "../appWrite/config";
 import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
+import { useToast } from "../components/ToastProvider";
 
 export default function Post() {
   const [post, setPost] = useState(null);
   const { slug } = useParams();
   const navigate = useNavigate();
+  const notify = useToast();
+  const [deleting, setDeleting] = useState(false);
 
   const userData = useSelector((state) => state.auth.userData);
 
@@ -23,13 +26,17 @@ export default function Post() {
     } else navigate("/");
   }, [slug, navigate]);
 
-  const deletePost = () => {
-    appwriteService.deletePost(post.$id).then((status) => {
-      if (status) {
-        appwriteService.deleteFile(post.featuredImage);
-        navigate("/");
-      }
-    });
+  const deletePost = async () => {
+    setDeleting(true);
+    const status = await appwriteService.deletePost(post.$id);
+    if (status) {
+      if (post.featuredImg) await appwriteService.deleteFile(post.featuredImg);
+      notify("Post deleted.", "success");
+      navigate("/all-posts");
+    } else {
+      notify("Could not delete this post. Check your permissions and try again.", "error");
+      setDeleting(false);
+    }
   };
 
   return post ? (
@@ -37,7 +44,7 @@ export default function Post() {
       <Container>
         <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
           <img
-            src={appwriteService.getFilePreview(post.featuredImage)}
+            src={appwriteService.getFilePreview(post.featuredImg)}
             alt={post.title}
             className="rounded-xl"
           />
@@ -49,8 +56,8 @@ export default function Post() {
                   Edit
                 </Button>
               </Link>
-              <Button bgColor="bg-red-500" onClick={deletePost}>
-                Delete
+              <Button bgColor="bg-rose-600 hover:bg-rose-700" onClick={deletePost} disabled={deleting}>
+                {deleting ? "Deleting…" : "Delete"}
               </Button>
             </div>
           )}
